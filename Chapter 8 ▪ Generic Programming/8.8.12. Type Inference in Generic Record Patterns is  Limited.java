@@ -1,4 +1,3 @@
-```java
 sealed interface JSONPrimitive<T> permits JSONNumber, JSONBoolean, JSONString {}
 
 record JSONNumber(double value) implements JSONPrimitive<Double> {}
@@ -61,4 +60,3 @@ public class Draft {
         System.out.println("sumNew(stringPair): " + sumNew(stringPair)); // "HelloWorld"
     }
 }
-```
