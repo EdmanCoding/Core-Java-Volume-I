@@ -42,5 +42,33 @@ public class FutureTaskExamples {
             System.out.println("Task took too long! Cancelling...");
             futureTask2.cancel(true); // Interrupt the task
         }
+
+        // Example 3 - Create a Runnable (no return value)
+        Runnable fileProcessor = () -> {
+            System.out.println("Processing files...");
+            try {
+                // Simulate file processing
+                for (int i = 1; i <= 5; i++) {
+                    Thread.sleep(500);
+                    System.out.println("Processed file " + i);
+                }
+                System.out.println("All files processed!");
+            } catch (InterruptedException e) {
+                System.out.println("File processing interrupted!");
+            }
+        };
+
+        FutureTask<Void> fileTask = new FutureTask<>(fileProcessor, null);
+        Thread fileWorker = new Thread(fileTask);
+        fileWorker.start();
+
+        // Main thread can monitor completion
+        while (!fileTask.isDone()) {
+            System.out.println("Files still processing...");
+            Thread.sleep(1000);
+        }
+
+        System.out.println("File processing task completed!");
+        fileTask.get(); // Immediately returns null since we know it's done
     }
 }
