@@ -21,7 +21,7 @@ public class JobScheduler {
         jobQueue.add(new Job("Database Update", 2));
         jobQueue.add(new Job("Report Generation", 4));
 
-        System.out.println("Initial job queue (not in priority order):");
+        System.out.println("Initial job queue:");
         for(Job job : jobQueue)
             System.out.println(job);
 
