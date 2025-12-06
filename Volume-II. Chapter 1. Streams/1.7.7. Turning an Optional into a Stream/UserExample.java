@@ -2,7 +2,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-// the minimal implementation of the code snippets from the textbook
+// The minimal implementation of the code snippets from the textbook
 // ---- Minimal User class ----
 record User(String id) {
     public String toString() {
@@ -27,13 +27,13 @@ public class UserExample {
         // A few sample user IDs
         Stream<String> ids = Stream.of("u1", "u2", "bad", "u3", "missing");
 
-        // Option 1
+        // Using not recommended isPresent and get methods
         Stream<User> users = ids.map(Users::lookup)          // Stream<Optional<User>>
                 .filter(Optional::isPresent) // keep only Optional<User> that have a value
                 .map(Optional::get);         // unwrap Optional<User> → User
 
         ids = Stream.of("u1", "u2", "bad", "u3", "missing"); // recreate stream
-        // Option 2
+        // More elegant option
         Stream<User> users2 = ids.map(Users::lookup)
                 .flatMap(Optional::stream);
 
