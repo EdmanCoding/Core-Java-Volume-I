@@ -26,12 +26,12 @@ public class HandlerExamples {
         };
         // Handler for database threads
         Thread.UncaughtExceptionHandler dbHandler = (thread, exception) -> {
-            System.out.println("DATABASE THREAD FAILED: " + thread.getName());
+            System.out.println("DATABASE THREAD FAILED: " + thread.getName() + " " + exception);
             // Maybe restart database connection
         };
         // Handler for web service threads
         Thread.UncaughtExceptionHandler webHandler = (thread, exception) -> {
-            System.out.println("WEB THREAD FAILED: " + thread.getName());
+            System.out.println("WEB THREAD FAILED: " + thread.getName()+ " " + exception.getMessage());
             // Maybe send alert to monitoring system
         };
 
