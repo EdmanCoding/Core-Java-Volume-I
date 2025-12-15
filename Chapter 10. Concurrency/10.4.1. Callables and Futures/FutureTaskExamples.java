@@ -31,7 +31,7 @@ public class FutureTaskExamples {
             return "Data from server";
         };
         FutureTask<String> futureTask2 = new FutureTask<>(fetchData);
-        Thread worker = new Thread(futureTask);
+        Thread worker = new Thread(futureTask2);
         worker.start();
 
         try {
@@ -57,10 +57,17 @@ public class FutureTaskExamples {
                 System.out.println("File processing interrupted!");
             }
         };
-
-        FutureTask<Void> fileTask = new FutureTask<>(fileProcessor, null);
+        
+        // Two tasks for showing the usage of the second parameter 
+        // public FutureTask( Runnable runnable, V result )
+        int res = 22;
+        FutureTask<Integer> fileTask = new FutureTask<>(fileProcessor, res);
         Thread fileWorker = new Thread(fileTask);
         fileWorker.start();
+
+        FutureTask<Void> fileTask2 = new FutureTask<>(fileProcessor, null);
+        Thread fileWorker2 = new Thread(fileTask2);
+        fileWorker2.start();
 
         // Main thread can monitor completion
         while (!fileTask.isDone()) {
@@ -69,6 +76,7 @@ public class FutureTaskExamples {
         }
 
         System.out.println("File processing task completed!");
-        fileTask.get(); // Immediately returns null since we know it's done
+        System.out.println("fileTask = " + fileTask.get()); // Immediately returns null since we know it's done
+        System.out.println("fileTask2 = " + fileTask2.get());
     }
 }
