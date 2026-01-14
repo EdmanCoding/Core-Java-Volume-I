@@ -59,11 +59,11 @@ public class ReduceBulkOperationsExample {
 
         // Sequential (single thread)
         long start2 = System.currentTimeMillis();
-        Integer parResult = largeMap.reduceValues(100000000, Integer::sum);
+        Integer seqResult = largeMap.reduceValues(100000000, Integer::sum);
         long seqTime = System.currentTimeMillis() - start2;
         // Parallel (multiple threads)
         long start = System.currentTimeMillis();
-        Integer seqResult = largeMap.reduceValues(1, Integer::sum);
+        Integer parResult = largeMap.reduceValues(1, Integer::sum);
         long parTime = System.currentTimeMillis() - start;
 
         System.out.println("Sequential: " + seqTime + "ms, Parallel: " + parTime + "ms");
@@ -82,7 +82,6 @@ public class ReduceBulkOperationsExample {
         }, Integer::max); // warm-up
 
         System.out.println("\n=== PARALLEL (threshold = 1) ===");
-        threadNames.clear();
         map2.reduceValues(1, v -> {
             threadNames.add(Thread.currentThread().getName());
             return v;
